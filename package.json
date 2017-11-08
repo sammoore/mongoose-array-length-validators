@@ -22,9 +22,9 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "mocha": "~4.0.1",
-    "mongoose": "~4.7.0"
+    "mongoose": "~4.10.0"
   },
   "peerDependencies": {
-    "mongoose": "^4.7.0"
+    "mongoose": "^4.10.0"
   }
 }
