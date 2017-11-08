@@ -1,0 +1,30 @@
+{
+  "name": "mongoose-array-length-validators",
+  "version": "0.1.0",
+  "description": "Plugin that adds support for `maxlength` and `minlength` validators for arrays.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/samtheprogram/mongoose-array-length-validators.git"
+  },
+  "keywords": [
+    "mongoose",
+    "array",
+    "length",
+    "validator",
+    "maxlength",
+    "minlength"
+  ],
+  "author": "Sam Moore <samtheprogram@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "mocha": "~4.0.1",
+    "mongoose": "~4.7.0"
+  },
+  "peerDependencies": {
+    "mongoose": "^4.7.0"
+  }
+}
