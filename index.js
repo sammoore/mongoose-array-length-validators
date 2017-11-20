@@ -10,31 +10,33 @@ const MESSAGES = {
   maxlength: 'PATH `{PATH}` is longer than the maximum allowed length `{LEN}`'
 };
 
+const RULES = keys(MESSAGES);
+
 module.exports = function (schema) {
   const arrayPaths = keys(schema.paths).filter((path) => {
     return schema.paths[path].$isMongooseArray;
   });
 
-  const pathsWith = ['minlength', 'maxlength'].reduce((out, rule) => {
-    out[rule] = arrayPaths.filter((path) => {
-      return typeof schema.paths[path].options[rule] == 'number';
-    });
-    return out;
-  }, {});
+  keys(schema.paths).forEach((path) => {
+    const type = schema.paths[path];
 
-  keys(pathsWith).forEach((rule) => {
-    pathsWith[rule].forEach((path) => {
-      let message = MESSAGES[rule].replace('{PATH}', path);
-
-      const option = schema.paths[path].options[rule];
-      message = message.replace('{LEN}', option);
-
-      const validator = validators[rule](option);
-
-      schema.path(path).validate({
-        validator,
-        message
-      });
-    });
+    descriptors(path, type.options).forEach(d => type.validate(d))
   });
 };
+
+function descriptors(path, options) {
+  return RULES
+  .filter(r => typeof options[r] == 'number')
+  .map(r => descriptor(path, r, options[r]));
+}
+
+function descriptor(path, rule, option) {
+  let message = MESSAGES[rule]
+  .replace('{PATH}', path)
+  .replace('{LEN}', option);
+  
+  return {
+    validator: validators[rule](option),
+    message: message
+  };
+}
