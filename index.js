@@ -29,6 +29,7 @@ function descriptors(path, options) {
   .filter(r => typeof options[r] == 'number')
   .map(r => descriptor(path, r, options[r]));
 }
+module.exports.descriptors = descriptors;
 
 function descriptor(path, rule, option) {
   let message = MESSAGES[rule]
@@ -40,3 +41,4 @@ function descriptor(path, rule, option) {
     message: message
   };
 }
+module.exports.descriptor = descriptor;
